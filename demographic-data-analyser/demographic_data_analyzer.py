@@ -2,25 +2,22 @@ import pandas as pd
 from collections import Counter
 
 df = pd.read_csv('adult.data.csv')
-# print(df.columns)
-# print(df.loc[df['sex'] == 'Male', ['age']])
-# print(len(df['sex'] == 'Male'))
-
+# print(df.index)
+# print(df['education'])
 
 def calculate_demographic_data(print_data=True):
     # Read data from file
     df = pd.read_csv('adult.data.csv')
 
     # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
-    C = Counter(df['race'])
-    race_count = pd.Series(C)
+    race_count = pd.Series(Counter(df['race']))
 
     # What is the average age of men?
     average_age_men = df.loc[df['sex'] == 'Male', 'age'].mean()
 
 
     # What is the percentage of people who have a Bachelor's degree?
-    percentage_bachelors = None
+    percentage_bachelors = (len(df.loc[df['education'] == 'Bachelors']) / len(df.index)) * 100
 
     # What percentage of people with advanced education (`Bachelors`, `Masters`, or `Doctorate`) make more than 50K?
     # What percentage of people without advanced education make more than 50K?
