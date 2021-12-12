@@ -2,6 +2,8 @@ import pandas as pd
 from collections import Counter
 
 df = pd.read_csv('adult.data.csv')
+
+
 # print(df.index)
 # print(df['education'])
 # print(df['capital-gain'])
@@ -16,7 +18,6 @@ def calculate_demographic_data(print_data=True):
     # What is the average age of men?
     average_age_men = df.loc[df['sex'] == 'Male', 'age'].mean()
 
-
     # What is the percentage of people who have a Bachelor's degree?
     percentage_bachelors = (len(df.loc[df['education'] == 'Bachelors']) / len(df.index)) * 100
 
@@ -24,19 +25,21 @@ def calculate_demographic_data(print_data=True):
     # What percentage of people without advanced education make more than 50K?
 
     # with and without `Bachelors`, `Masters`, or `Doctorate`
-    higher_education = df[ (df['education'] == 'Bachelors') | \
+    higher_education = df[(df['education'] == 'Bachelors') | \
                           (df['education'] == 'Masters') | \
-                          (df['education'] == 'Doctorate') ]
+                          (df['education'] == 'Doctorate')]
 
-
-    lower_education = df[ (df['education'] != 'Bachelors') & \
+    lower_education = df[(df['education'] != 'Bachelors') & \
                          (df['education'] != 'Masters') & \
-                         (df['education'] != 'Doctorate') ]
-
+                         (df['education'] != 'Doctorate')]
 
     # percentage with salary >50K
-    # higher_education_rich = higher_education / len(df.loc[df['capital-gain'] > 50000])/ len(df.index) * 100
-    # lower_education_rich = len(df.loc[df['capital-gain'] > 50000]) / len(df.index) * 100
+    higher_education_rich = (higher_education['salary'] == '>50K').sum() / \
+                            len(higher_education) * 100
+
+
+    lower_education_rich = (lower_education['salary'] == '>50K').sum() / \
+                            len(lower_education) * 100
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = None
@@ -56,7 +59,7 @@ def calculate_demographic_data(print_data=True):
     # DO NOT MODIFY BELOW THIS LINE
 
     if print_data:
-        print("Number of each race:\n", race_count) 
+        print("Number of each race:\n", race_count)
         print("Average age of men:", average_age_men)
         print(f"Percentage with Bachelors degrees: {percentage_bachelors}%")
         print(f"Percentage with higher education that earn >50K: {higher_education_rich}%")
@@ -77,8 +80,9 @@ def calculate_demographic_data(print_data=True):
         'rich_percentage': rich_percentage,
         'highest_earning_country': highest_earning_country,
         'highest_earning_country_percentage':
-        highest_earning_country_percentage,
+            highest_earning_country_percentage,
         'top_IN_occupation': top_IN_occupation
     }
+
 
 calculate_demographic_data()
