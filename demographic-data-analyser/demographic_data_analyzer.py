@@ -4,6 +4,7 @@ from collections import Counter
 df = pd.read_csv('adult.data.csv')
 # print(df.index)
 # print(df['education'])
+# print(df['capital-gain'])
 
 def calculate_demographic_data(print_data=True):
     # Read data from file
@@ -23,12 +24,19 @@ def calculate_demographic_data(print_data=True):
     # What percentage of people without advanced education make more than 50K?
 
     # with and without `Bachelors`, `Masters`, or `Doctorate`
-    higher_education = None
-    lower_education = None
+    higher_education = df[ (df['education'] == 'Bachelors') | \
+                          (df['education'] == 'Masters') | \
+                          (df['education'] == 'Doctorate') ]
+
+
+    lower_education = df[ (df['education'] != 'Bachelors') & \
+                         (df['education'] != 'Masters') & \
+                         (df['education'] != 'Doctorate') ]
+
 
     # percentage with salary >50K
-    higher_education_rich = None
-    lower_education_rich = None
+    # higher_education_rich = higher_education / len(df.loc[df['capital-gain'] > 50000])/ len(df.index) * 100
+    # lower_education_rich = len(df.loc[df['capital-gain'] > 50000]) / len(df.index) * 100
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = None
