@@ -45,9 +45,9 @@ def calculate_demographic_data(print_data=True):
     min_work_hours = min(df['hours-per-week'])
 
     # What percentage of the people who work the minimum number of hours per week have a salary of >50K?
-    num_min_workers = None
+    num_min_workers = df.loc[df['hours-per-week'] == 1, 'salary']
 
-    rich_percentage = None
+    rich_percentage = len(num_min_workers) / len(df.loc[df['salary'] == '>50K']) * 100
 
     # What country has the highest percentage of people that earn >50K?
     highest_earning_country = None
