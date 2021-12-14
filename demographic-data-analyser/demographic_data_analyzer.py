@@ -60,7 +60,14 @@ def calculate_demographic_data(print_data=True):
     highest_earning_country_percentage = percentage_riches_by_country.max()
 
     # Identify the most popular occupation for those who earn >50K in India.
-    top_IN_occupation = None
+
+    top_IN_occupation = pd.Series( # tornando objeto Series o
+        Counter( # contador das
+            df.loc[ # localizações das
+
+                # ocupações dos indianos cujos salários sejam maiores que 50K
+                ( df[ 'native-country' ] == 'India' ) & ( df[ 'salary' ] == '>50K' ), 'occupation' ] )
+                ).idxmax() # e selecionando o índice daquele com o maior valor
 
     # DO NOT MODIFY BELOW THIS LINE
 
