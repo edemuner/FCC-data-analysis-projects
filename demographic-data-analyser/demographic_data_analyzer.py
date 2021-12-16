@@ -57,7 +57,7 @@ def calculate_demographic_data(print_data=True):
 
     highest_earning_country = percentage_riches_by_country.idxmax()
 
-    highest_earning_country_percentage = percentage_riches_by_country.max()
+    highest_earning_country_percentage = round(percentage_riches_by_country.max() * 100, 1)
 
     # Identify the most popular occupation for those who earn >50K in India.
 
