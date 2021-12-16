@@ -38,8 +38,8 @@ def calculate_demographic_data(print_data=True):
                             len(higher_education) * 100, 1)
 
 
-    lower_education_rich = (lower_education['salary'] == '>50K').sum() / \
-                            len(lower_education) * 100
+    lower_education_rich = round((lower_education['salary'] == '>50K').sum() / \
+                            len(lower_education) * 100, 1)
 
     # What is the minimum number of hours a person works per week (hours-per-week feature)?
     min_work_hours = min(df['hours-per-week'])
