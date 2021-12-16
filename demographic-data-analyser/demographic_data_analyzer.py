@@ -34,8 +34,8 @@ def calculate_demographic_data(print_data=True):
                          (df['education'] != 'Doctorate')]
 
     # percentage with salary >50K
-    higher_education_rich = (higher_education['salary'] == '>50K').sum() / \
-                            len(higher_education) * 100
+    higher_education_rich = round((higher_education['salary'] == '>50K').sum() / \
+                            len(higher_education) * 100, 1)
 
 
     lower_education_rich = (lower_education['salary'] == '>50K').sum() / \
