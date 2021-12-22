@@ -13,20 +13,6 @@ df['overweight'] = [1 if i > 25 else 0 for i in df['weight'] / ((df['height'] / 
 df['cholesterol'] = [1 if i > 1 else 0 for i in df['cholesterol']]
 df['gluc'] = [1 if i > 1 else 0 for i in df['gluc']]
 
-# limpando os valores em que a pressão diastólica é maior que a pressão sistólica
-df = df.loc[df['ap_lo'] <= df['ap_hi']]
-
-# limpando os valores em que o quantil de altura é abaixo de 0.025
-df = df.loc[df['height'] >= df['height'].quantile(0.025)]
-
-# limpando os valores em que o quantil de altura é acima de 0.975
-df = df.loc[df['height'] <= df['height'].quantile(0.975)]
-
-# os mesmos ajustes no peso
-df = df.loc[df['weight'] >= df['weight'].quantile(0.025)]
-
-df = df.loc[df['weight'] >= df['weight'].quantile(0.975)]
-
 
 # Draw Categorical Plot
 def draw_cat_plot():
@@ -49,7 +35,11 @@ def draw_cat_plot():
 # Draw Heat Map
 def draw_heat_map():
     # Clean the data
-    df_heat = None
+    df_heat = df.loc[(df['ap_lo'] <= df['ap_hi']) &
+           (df['height'] >= df['height'].quantile(0.025)) &
+           (df['height'] <= df['height'].quantile(0.975)) &
+           (df['weight'] >= df['weight'].quantile(0.025)) &
+           (df['weight'] >= df['weight'].quantile(0.975))]
 
     # Calculate the correlation matrix
     corr = None
