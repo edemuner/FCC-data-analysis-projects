@@ -45,16 +45,16 @@ def draw_heat_map():
     corr = df_heat.corr()
 
     # Generate a mask for the upper triangle
-    mask = None
-
-
+    mask = np.zeros_like(corr)
+    mask[np.triu_indices_from(mask)] = True
 
     # Set up the matplotlib figure
-    fig, ax = None, None
+    fig, ax = plt.subplots(figsize=(7, 5))
+
 
     # Draw the heatmap with 'sns.heatmap()'
 
-
+    fig = sns.heatmap(corr, mask=mask, vmax=.3, square=True)
 
     # Do not modify the next two lines
     fig.savefig('heatmap.png')
