@@ -42,7 +42,7 @@ def draw_heat_map():
            (df['weight'] >= df['weight'].quantile(0.975))]
 
     # Calculate the correlation matrix
-    corr = None
+    corr = df_heat.corr()
 
     # Generate a mask for the upper triangle
     mask = None
